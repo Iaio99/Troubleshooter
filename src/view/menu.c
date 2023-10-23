@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "../controller/commands.h"
+
 #ifdef _WIN32
 void windows_menu()
 {
@@ -41,27 +43,27 @@ void windows_menu()
 		if (opt < 16)
 			system(win_commands[opt]);
 		else
-			get_output(win_commands[opt], fp);
+			get_output(win_commands[opt]);
 	}
 }
 
 #else
 void posix_menu()
 {
-	get_output("lsblk", fp);
-	get_output("sudo fdisk -l", fp);
-	get_output("lspci -nk", fp);
-	get_output("sudo dmesg --level=err", fp);
-	get_output("sudo dmesg --level=warn", fp);
+	get_output("lsblk");
+	get_output("sudo fdisk -l");
+	get_output("lspci -nk");
+	get_output("sudo dmesg --level=err");
+	get_output("sudo dmesg --level=warn");
 	system("sudo dmesg > full_dmesg.txt");
-	get_output("systemctl --type=service", fp);
-	get_output("cat /proc/cpuinfo", fp);
+	get_output("systemctl --type=service");
+	get_output("cat /proc/cpuinfo");
         /*
         * Stato dei dischi
-        * Dispositivi
+        * Hardware info
         * Rete
         * Log di sistema
-        *
+        * Demoni di sistema
         */
 }
 #endif 

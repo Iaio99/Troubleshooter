@@ -14,12 +14,8 @@ void get_output (char *command)
         if (stream == NULL)
                 exit(-1);
 
-        fprintf(debug, "%s\n\n", command);
-        fflush(debug);
-
         while ((ret = fread(output, sizeof(char), 4096, stream)) > 0) {
-                fprintf(debug, "%s\n\n\n", output);
-                fflush(debug);
+                printf("%s\n", output);
         }
 
         pclose(stream);
