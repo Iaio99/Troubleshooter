@@ -2,6 +2,8 @@
 #include <stdlib.h>
 
 #ifdef _WIN32
+void windows_menu()
+{
 	int opt;
 	
 	printf("Benvenuto in Utility!\n");
@@ -19,14 +21,14 @@
 		printf("9. Gestione di Stampa\n");
 		printf("10. Servizi\n");
 		printf("11. Utilità di Pianificazione\n");
-	    printf("12. Gestione Trusted Platform Module\n");
+	        printf("12. Gestione Trusted Platform Module\n");
 		printf("13. Windows Firewall con sicurezza avanzata\n");
-	    printf("14. Registro Windows\n");
+	        printf("14. Registro Windows\n");
 		printf("15. System Information\n");
-	    printf("16. Prompt dei Comandi\n");
+	        printf("16. Prompt dei Comandi\n");
 		printf("17. Check connessione\n");
 		printf("18. systeminfo.exe\n");
-		printf("19. Ip locale e configurazione di rete\n");
+		printf("19. IP locale e configurazione di rete\n");
 		printf("20. Exit\n");
      
 		scanf("%d", &opt);
@@ -41,8 +43,11 @@
 		else
 			get_output(win_commands[opt], fp);
 	}
+}
 
 #else
+void posix_menu()
+{
 	get_output("lsblk", fp);
 	get_output("sudo fdisk -l", fp);
 	get_output("lspci -nk", fp);
@@ -51,4 +56,12 @@
 	system("sudo dmesg > full_dmesg.txt");
 	get_output("systemctl --type=service", fp);
 	get_output("cat /proc/cpuinfo", fp);
+        /*
+        * Stato dei dischi
+        * Dispositivi
+        * Rete
+        * Log di sistema
+        *
+        */
+}
 #endif 

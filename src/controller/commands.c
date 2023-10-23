@@ -3,7 +3,7 @@
 
 #include "commands.h"
 
-void get_output (char *command, FILE *debug)
+void get_output (char *command)
 {
         int ret;
         FILE *stream;
