@@ -47,7 +47,7 @@ void windows_menu()
 	}
 }
 
-#else
+
 void posix_menu()
 {
 	get_output("lsblk");
@@ -66,4 +66,3 @@ void posix_menu()
         * Demoni di sistema
         */
 }
-#endif 
