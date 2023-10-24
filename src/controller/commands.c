@@ -5,7 +5,6 @@
 
 void get_output (const char *command)
 {
-        int ret;
         FILE *stream;
         char output[4096] = {0};
 
@@ -14,7 +13,7 @@ void get_output (const char *command)
         if (stream == NULL)
                 exit(-1);
 
-        while ((ret = fread(output, sizeof(char), 4096, stream)) > 0) {
+        while (fread(output, sizeof(char), 4096, stream) > 0) {
                 printf("%s\n", output);
         }
 
