@@ -1,15 +1,42 @@
 #include <arpa/inet.h>
 #include <ifaddrs.h>
-#include <sys/ioctl.h>
 #include <netinet/in.h>
 #include <net/route.h>
 #include <resolv.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 
 #include "network.h"
+
+
+bool ping (const char *target) {
+	char command[256];
+#ifdef _WIN32
+    snprintf(command, sizeof(command), "ping -n 1 %s > nul", target);
+#else 
+	snprintf(command, sizeof(command), "ping -c 1 %s > /dev/null", target);
+#endif
+    // Esegui il comando ping e controlla il risultato
+    int result = system(command);
+
+    // Il risultato di system restituisce il codice di uscita del comando ping
+    // 0 indica successo (ping riuscito), mentre altri valori indicano un errore
+    return result == 0 ? 1 : 0;
+}
+
+
+void test_connection() {
+	if (!ping("google.com"))
+		printf("[ERROR] DNS not working\n");
+	if (!ping("8.8.8.8"))
+		printf("[ERROR] Internet not working\n");
+	else
+		printf("All test passed!\n");
+}
+
 
 void get_network_info()
 {
