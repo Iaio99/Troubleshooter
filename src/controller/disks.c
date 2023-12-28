@@ -115,7 +115,7 @@ void list_disks()
 	const char *path = udev_list_entry_get_name(entry);
 	struct udev_device *device = udev_device_new_from_syspath(udev, path);
 	if (device) {
-	    printDiskInfo(device);
+	    get_disk_info(device);
 	    udev_device_unref(device);
 	}
     }

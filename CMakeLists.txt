@@ -16,7 +16,7 @@ add_executable(troubleshooter
 )
 
 include_directories(/usr/include/libcpuid)
-target_link_libraries(troubleshooter cpuid)
+target_link_libraries(troubleshooter cpuid blkid udev)
 
 if(MSVC)
     add_compile_options(PRIVATE /W4 /WX)
