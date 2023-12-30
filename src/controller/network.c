@@ -1,13 +1,16 @@
 #include <arpa/inet.h>
 #include <ifaddrs.h>
-#include <netinet/in.h>
+#include <net/if.h>
 #include <net/route.h>
+#include <netinet/in.h>
 #include <resolv.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/ioctl.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 #include "network.h"
 #include "../utils/io.h"
@@ -24,12 +27,51 @@ static bool ping (const char *target) {
     return result == 0 ? 1 : 0;
 }
 
-
-static char *get_gateway()
+static char *get_gateway(const char *ifname)
 {
+    int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+    if (sockfd == -1) {
+        perror("socket");
+        return NULL;
+    }
 
+    struct ifreq ifr;
+    memset(&ifr, 0, sizeof(ifr));
+    strncpy(ifr.ifr_name, ifname, IFNAMSIZ - 1);
+
+    if (ioctl(sockfd, SIOCGIFADDR, &ifr) == -1) {
+        perror("ioctl");
+        close(sockfd);
+        return NULL;
+    }
+
+    struct sockaddr_in *addr = (struct sockaddr_in *)&ifr.ifr_addr;
+    char *gateway = inet_ntoa(addr->sin_addr);
+
+    close(sockfd);
+
+    return gateway;
 }
 
+static char **get_dns()
+{
+	_res.options |= RES_INIT;
+    	struct __res_state res;
+
+	char **dns_list = malloc((res.nscount+1)*INET_ADDRSTRLEN);
+
+    	if (res_ninit(&res) != 0)
+    	    	return NULL;
+
+        for (int i = 0; i < res.nscount; i++) {
+             dns_list[i] = inet_ntoa(res.nsaddr_list[i].sin_addr);
+	     dns_list[INET_ADDRSTRLEN] = 0;
+        }
+
+	dns_list[res.nscount] = NULL;
+
+	return dns_list;
+}
 
 extern void test_connection() {
 	if (!ping("google.com"))
@@ -64,7 +106,7 @@ extern void get_network_info()
 		sa = (struct sockaddr_in *) ifa->ifa_addr;
 		char ip_address[INET_ADDRSTRLEN];
 		char netmask[INET_ADDRSTRLEN];
-		const char *gateway = "N/A";
+		char *gateway;
 		const char *dns = "N/A";
 
 		inet_ntop(AF_INET, &sa->sin_addr, ip_address, INET_ADDRSTRLEN);
@@ -74,6 +116,11 @@ extern void get_network_info()
 
 		// Note: The gateway information might not be accurate, as it requires additional
 		// system-specific code to retrieve the default gateway.
+
+		gateway = get_gateway(ifa->ifa_name);
+
+		if (gateway == NULL)
+			gateway = "N/A";
 
 		printf("%-16s%-16s%-16s%-16s%-16s\n", ifa->ifa_name, ip_address, netmask, gateway, dns);
 	}
