@@ -12,6 +12,7 @@ add_executable(troubleshooter
         src/controller/disks.c
         src/controller/commands.c
         src/controller/network.c
+        src/utils/io.c
 	    src/view/menu.c
 )
 
