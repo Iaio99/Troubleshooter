@@ -73,7 +73,7 @@ char *get_dns_servers()
 	dns_list[strlen(dns_list) - 2] = 0;
 	
 	char *p = dns_list;
-	return dns_list;
+	return p;
 }
 
 extern void test_connection() {
@@ -142,7 +142,7 @@ extern void get_network_info()
 		if (dns == NULL)
 			dns = "N/A";
 
-		printf("%-16s%-16s%-16s%-16s%-16s\n", ifa->ifa_name, ip_address, netmask, gateway, dns_list);
+		printf("%-16s%-16s%-16s%-16s%-16s\n", ifa->ifa_name, ip_address, netmask, gateway, dns);
 	}
 
 	freeifaddrs(ifap);
