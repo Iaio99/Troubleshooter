@@ -5,7 +5,6 @@
 
 void get_output (const char *command)
 {
-	int ret;
 	FILE *stream;
 	char output[4096] = {0};
 

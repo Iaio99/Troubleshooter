@@ -62,7 +62,7 @@ bool yes_or_no(char *question, char yes, char no, bool default_answer, bool inse
 	// Which of the two is the default?
 	char s;
 	char n;
-	
+
 	if(default_answer) {
 		s = (char)toupper(yes);
 		n = (char)tolower(no);
@@ -95,10 +95,10 @@ bool yes_or_no(char *question, char yes, char no, bool default_answer, bool inse
 			return true;
 		} else if(c == no) {
 			return false;
-		} else if(c == toupper(yes)) {
-			if(default_answer || insensitive) return true;
-		} else if(c == toupper(no)) {
-			if(!default_answer || insensitive) return false;
+		} else if(c == toupper(yes) && default_answer || insensitive) {
+			return true;
+		} else if(c == toupper(no) && !default_answer || insensitive) {
+			return false;
 		}
 	}
 }
