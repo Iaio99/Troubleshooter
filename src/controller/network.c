@@ -54,7 +54,7 @@ static char *get_gateway(const char *ifname)
     return gateway;
 }
 
-static char **get_dns()
+static char *get_dns_servers()
 {
 	_res.options |= RES_INIT;
     	struct __res_state res;
@@ -62,14 +62,17 @@ static char **get_dns()
     	if (res_ninit(&res) != 0)
     	    	return NULL;
 
-	char **dns_list = malloc((res.nscount+1)*INET_ADDRSTRLEN);
+	char *dns_list = calloc((res.nscount+1)*INET_ADDRSTRLEN+2*res.nscount, sizeof(char));
+
+	if (dns_list == NULL)
+		return NULL;
 
         for (int i = 0; i < res.nscount; i++) {
-             dns_list[i] = inet_ntoa(res.nsaddr_list[i].sin_addr);
-	     dns_list[INET_ADDRSTRLEN] = 0;
+             	strcpy(&dns_list[strlen(dns_list)], inet_ntoa(res.nsaddr_list[i].sin_addr));
+		strcpy(&dns_list[strlen(dns_list)], ", ");
         }
 
-	dns_list[res.nscount] = NULL;
+	dns_list[strlen(dns_list) - 2] = 0;
 
 	return dns_list;
 }
@@ -120,7 +123,7 @@ extern void get_network_info()
 		char ip_address[INET_ADDRSTRLEN];
 		char netmask[INET_ADDRSTRLEN];
 		char *gateway;
-		const char *dns = "N/A";
+		char *dns;
 
 		inet_ntop(AF_INET, &sa->sin_addr, ip_address, INET_ADDRSTRLEN);
 
@@ -134,6 +137,11 @@ extern void get_network_info()
 
 		if (gateway == NULL)
 			gateway = "N/A";
+
+		dns = get_dns_servers();
+
+		if (dns == NULL)
+			dns = "N/A";
 
 		printf("%-16s%-16s%-16s%-16s%-16s\n", ifa->ifa_name, ip_address, netmask, gateway, dns);
 	}
