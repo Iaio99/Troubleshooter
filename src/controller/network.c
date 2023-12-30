@@ -40,7 +40,8 @@ void get_network_info()
 #ifdef _WIN32
 	get_output("ipconfig");
 #else
-	struct ifaddrs *ifap, *ifa;
+	struct ifaddrs *ifap;
+	struct ifaddrs *ifa;
 	struct sockaddr_in *sa;
 	
 	if (getifaddrs(&ifap) == -1) {

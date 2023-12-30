@@ -3,7 +3,7 @@
 
 #include "commands.h"
 
-void get_output (char *command)
+void get_output (const char *command)
 {
 	int ret;
 	FILE *stream;
@@ -14,7 +14,7 @@ void get_output (char *command)
 	if (stream == NULL)
 		exit(-1);
 
-	while ((ret = fread(output, sizeof(char), 4096, stream)) > 0) {
+	while (fread(output, sizeof(char), 4096, stream) > 0) {
 		printf("%s\n", output);
 	}
 
