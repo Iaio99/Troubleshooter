@@ -75,6 +75,7 @@ void get_network_info()
 		res_init();
 		for (int i = 0; i < _res.nscount; ++i) {
 			strncpy(dns, inet_ntoa(_res.nsaddr_list[i].sin_addr), INET_ADDRSTRLEN);
+			dns[INET_ADDRSTRLEN - 1] = 0;
 			printf("%-16s%-16s%-16s%-16s%-16s\n", ifa->ifa_name, ip_address, netmask, gateway, dns);
 		}
 	}
