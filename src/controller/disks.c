@@ -50,7 +50,7 @@ void get_disk_info(struct udev_device *device)
     	const char *devicePath = udev_device_get_devnode(device);
 
     	if (!devicePath) {
-		print_error("Errore nell'ottenere il percorso del dispositivo\n");
+		print_error("Impossible to get the device's path\n");
 		return;
     	}
 
@@ -66,14 +66,14 @@ void get_disk_info(struct udev_device *device)
 		pr = blkid_new_probe_from_filename(devicePath);
 
 		if (!pr) {
-			print_error("%s: failed to create a new libblkid probe\n\n",
+			print_error("%s failed to create a new libblkid probe\n\n",
 					devicePath);
 			return;
 		}
 		/* Binary interface */
 		partlist = blkid_probe_get_partitions(pr);
 		if (!partlist) {
-			print_error("%s: failed to read partitions\n\n", devicePath);
+			print_error("%s failed to read partitions\n\n", devicePath);
 			return;
 		} 
 
@@ -82,7 +82,7 @@ void get_disk_info(struct udev_device *device)
 		 */
 		root_tab = blkid_partlist_get_table(partlist);
 		if (!root_tab)
-			print_error("%s: does not contains any "
+			print_error("%s does not contains any "
 					 "known partition table\n\n", devicePath);
 
 		printf("size: %jdG, sector size: %u, Partition Table Type: %s, id=%s\n---\n",
@@ -101,7 +101,7 @@ void list_disks()
     struct udev *udev = udev_new();
 
     if (!udev) {
-	print_error("Errore nell'inizializzazione di udev\n");
+	print_error("Can't initialize udev\n");
 	return;
     }
 

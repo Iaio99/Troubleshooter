@@ -24,7 +24,8 @@ int menu()
 		colorized_printf(BLUE, "2. Test Connection");
 		colorized_printf(BLUE, "3. Gather Disks informations");
 		colorized_printf(BLUE, "4. Gather CPU informations");
-		colorized_printf(BLUE, "5. Exit");
+		colorized_printf(BLUE, "5. Generate full report");
+		colorized_printf(BLUE, "6. Exit");
 		
 		scanf("%d", &opt);
 		getchar();
@@ -43,6 +44,9 @@ int menu()
 				get_cpu_info();
 				break;
 			case 5:
+				print_error("Not implemented yet!");
+				break;
+			case 6:
 				return EXIT_SUCCESS;
 				break;
 			default:
