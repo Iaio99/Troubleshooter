@@ -11,6 +11,7 @@ add_executable(troubleshooter
         src/controller/cpu.c
         src/controller/disks.c
         src/controller/network.c
+        src/controller/system.c
         src/utils/commands.c
         src/utils/io.c
         src/utils/validation.c

@@ -4,6 +4,7 @@
 #include "../controller/network.h"
 #include "../controller/disks.h"
 #include "../controller/cpu.h"
+#include "../controller/system.h"
 #include "../utils/io.h"
 
 extern int menu()
@@ -23,8 +24,10 @@ extern int menu()
 		colorized_printf(BLUE, "2. Test Connection");
 		colorized_printf(BLUE, "3. Gather Disks informations");
 		colorized_printf(BLUE, "4. Gather CPU informations");
-		colorized_printf(BLUE, "5. Generate full report");
-		colorized_printf(BLUE, "6. Exit");
+		colorized_printf(BLUE, "5. Gather host informations");
+		colorized_printf(BLUE, "6. Gather system errors");
+		colorized_printf(BLUE, "7. Generate full report");
+		colorized_printf(BLUE, "8. Exit");
 		
 		scanf("%d", &opt);
 		getchar();
@@ -43,9 +46,15 @@ extern int menu()
 				get_cpu_info();
 				break;
 			case 5:
-				print_error("Not implemented yet!");
+				get_host_info();
 				break;
 			case 6:
+				get_system_errors();
+				break;
+			case 7:
+				print_error("Not implemented yet!");
+				break;
+			case 8:
 				return EXIT_SUCCESS;
 				break;
 			default:
