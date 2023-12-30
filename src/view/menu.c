@@ -7,7 +7,7 @@
 #include "../controller/cpu.h"
 #include "../utils/io.h"
 
-int menu()
+extern int menu()
 {
 	int opt;
 	clear_screen();

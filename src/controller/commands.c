@@ -3,7 +3,7 @@
 
 #include "commands.h"
 
-void get_output (const char *command)
+extern void get_output (const char *command)
 {
 	FILE *stream;
 	char output[4096] = {0};

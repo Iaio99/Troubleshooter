@@ -1,3 +1,3 @@
 #pragma once
 
-int menu();
+extern int menu();

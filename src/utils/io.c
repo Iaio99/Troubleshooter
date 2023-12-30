@@ -18,7 +18,7 @@ static void leave(void)
 		exit(EXIT_SUCCESS);
 }
 
-int colorized_printf(int color, const char *fmt, ...)
+extern int colorized_printf(int color, const char *fmt, ...)
 {
         va_list argList;
         va_start(argList, fmt);
@@ -33,7 +33,7 @@ int colorized_printf(int color, const char *fmt, ...)
         return res;
 }
 
-int print_error(const char *fmt, ...)
+extern int print_error(const char *fmt, ...)
 {
         va_list argList;
         va_start(argList, fmt);
@@ -48,12 +48,12 @@ int print_error(const char *fmt, ...)
         return res;
 }
 
-void clear_screen(void)
+extern void clear_screen(void)
 {
         printf("\033[2J\033[H");
 }
 
-bool yes_or_no(char *question, char yes, char no, bool default_answer, bool insensitive)
+extern bool yes_or_no(char *question, char yes, char no, bool default_answer, bool insensitive)
 {
 	int extra = 0;
 

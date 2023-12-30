@@ -4,7 +4,7 @@
 
 #include "cpu.h"
 
-void get_cpu_info() {
+extern void get_cpu_info() {
 #ifdef _WIN32
     	system("wmic cpu get Name,NumberOfCores,NumberOfLogicalProcessors,MaxClockSpeed");
 #else
@@ -27,7 +27,7 @@ void get_cpu_info() {
 #endif
 }
 
-void get_x86_version(uint8_t cpu_flags[])
+static void get_x86_version(uint8_t cpu_flags[])
 {
 	uint8_t level;
     	if (cpu_flags[CPU_FEATURE_LM] && cpu_flags[CPU_FEATURE_CMOV] &&

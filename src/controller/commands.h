@@ -1,3 +1,3 @@
 #pragma once
 
-void get_output (const char *command);
+extern void get_output (const char *command);

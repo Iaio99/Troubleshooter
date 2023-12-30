@@ -12,7 +12,7 @@
 #include "network.h"
 #include "../utils/io.h"
 
-bool ping (const char *target) {
+static bool ping (const char *target) {
 	char command[256];
 #ifdef _WIN32
     snprintf(command, sizeof(command), "ping -n 1 %s > nul", target);
@@ -25,7 +25,13 @@ bool ping (const char *target) {
 }
 
 
-void test_connection() {
+static char *get_gateway()
+{
+
+}
+
+
+extern void test_connection() {
 	if (!ping("google.com"))
 		print_error("DNS not working");
 	if (!ping("8.8.8.8"))
@@ -35,7 +41,7 @@ void test_connection() {
 }
 
 
-void get_network_info()
+extern void get_network_info()
 {
 #ifdef _WIN32
 	get_output("ipconfig");

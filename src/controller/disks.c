@@ -9,7 +9,7 @@
 #include "disks.h"
 #include "../utils/io.h"
 
-void list_partitions(blkid_partlist partlist, blkid_probe pr)
+static void list_partitions(blkid_partlist partlist, blkid_probe pr)
 {
 	int nparts;
 	int i;
@@ -45,7 +45,7 @@ void list_partitions(blkid_partlist partlist, blkid_probe pr)
 	}
 
 
-void get_disk_info(struct udev_device *device)
+static void get_disk_info(struct udev_device *device)
 {
     	const char *devicePath = udev_device_get_devnode(device);
 
@@ -96,7 +96,7 @@ void get_disk_info(struct udev_device *device)
 	}
 }
 
-void list_disks()
+extern void list_disks()
 {
     struct udev *udev = udev_new();
 
