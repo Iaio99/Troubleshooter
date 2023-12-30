@@ -3,7 +3,5 @@
 
 int main()
 {
-	menu();
-	
-	return 0;
+	return menu();
 }

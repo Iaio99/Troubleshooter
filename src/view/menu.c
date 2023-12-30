@@ -7,7 +7,7 @@
 #include "../controller/cpu.h"
 #include "../utils/io.h"
 
-void menu()
+int menu()
 {
 	int opt;
 	
@@ -20,10 +20,11 @@ colorized_puts(BLUE, "    \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___| |_|_| |_
 	colorized_puts(BLUE, "Quale programma vuoi usare?");
 	
 	while(1) {
-		colorized_puts(BLUE, "1. Network info");
+		colorized_puts(BLUE, "1. Gather network informations");
 		colorized_puts(BLUE, "2. Test Connection");
-		colorized_puts(BLUE, "3. Disks info");
-		colorized_puts(BLUE, "4. CPU info");
+		colorized_puts(BLUE, "3. Gather Disks informations");
+		colorized_puts(BLUE, "4. Gather CPU informations");
+		colorized_puts(BLUE, "5. Exit");
 		
 		scanf("%d", &opt);
 		getchar();
@@ -40,6 +41,10 @@ colorized_puts(BLUE, "    \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___| |_|_| |_
 				break;
 			case 4:
 				get_cpu_info();
+				break;
+			case 5:
+				colorized_puts(BLUE, "Bye!");
+				return EXIT_SUCCESS;
 				break;
 			default:
 				print_error("Unrecognized option");
