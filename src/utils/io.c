@@ -18,6 +18,32 @@ static void leave(void)
 		exit(EXIT_SUCCESS);
 }
 
+char *get_input(char *question, int len, char *buff)
+{
+	printf("%s", question);
+
+	if(fgets(buff, len, stdin) != NULL) {
+		buff[strcspn(buff, "\n")] = 0;
+	} else {
+		printf("EOF received, leaving...\n");
+		fflush(stdout);
+		leave();
+	}
+
+	// Empty stdin
+	if(strlen(buff) + 1 == len) {
+		int ch;
+		while(((ch = getchar()) != EOF) && (ch != '\n'));
+		if(ch == EOF) {
+			printf("EOF received, leaving...\n");
+			fflush(stdout);
+			leave();
+		}
+	}
+
+	return buff;
+}
+
 extern int colorized_printf(int color, const char *fmt, ...)
 {
         va_list argList;
