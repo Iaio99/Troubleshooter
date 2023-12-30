@@ -11,7 +11,7 @@
 #define GREEN 32
 #define RESET 0
 
-int colorized_puts(int color, char *fmt, ...);
+int colorized_printf(int color, char *fmt, ...);
 int print_error(char *fmt, ...);
 extern bool yes_or_no(char *question, char yes, char no, bool default_answer, bool insensitive);
 extern void clear_screen(void);

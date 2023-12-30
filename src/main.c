@@ -5,7 +5,7 @@ int main()
 {
 	int res;
 	res = menu();
-	colorized_puts(BLUE, "Bye!");
+	colorized_printf(BLUE, "Bye!");
 	
 	return res;
 }
