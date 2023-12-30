@@ -81,13 +81,11 @@ extern void test_connection() {
 	char ip_test[INET_ADDRSTRLEN + 1];
 
 	while (1) {
-		printf("Give me a public IPv4 (8.8.8.8 for example): ");
-		fflush(stdout);
-		fgets(ip_test, INET_ADDRSTRLEN, stdin);
-		ip_test[strlen(ip_test) - 1] = '\0';
+		get_input("Give me a public IPv4 (8.8.8.8 for example): ", INET_ADDRSTRLEN, ip_test);
 
 		if (validate_ip_address(ip_test))
 			break;
+
 		print_error("The IPv4 Address inserted is not valid");
 	}
 
