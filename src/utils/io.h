@@ -1,5 +1,9 @@
+#pragma once
+
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
+#include <setjmp.h>
 
 #define BLUE 34
 #define YELLOW 33
@@ -9,3 +13,5 @@
 
 int colorized_puts(int color, char *fmt, ...);
 int print_error(char *fmt, ...);
+extern bool yes_or_no(char *question, char yes, char no, bool default_answer, bool insensitive);
+extern void clear_screen(void);
