@@ -23,7 +23,10 @@ int colorized_printf(int color, const char *fmt, ...)
         va_list argList;
         va_start(argList, fmt);
 
-        char new_fmt[strlen(fmt) + 15];
+	size_t len = strlen(fmt) + 15;
+        char new_fmt[len];
+	new_fmt[len - 1];
+
         snprintf(new_fmt, sizeof(new_fmt), "\033[0;%dm%s\033[0;%dm\n", color, fmt, RESET);
 
         int res =  vprintf(new_fmt, argList);
@@ -38,7 +41,10 @@ int print_error(const char *fmt, ...)
         va_list argList;
         va_start(argList, fmt);
 
-        char new_fmt[strlen(fmt) + 23];
+	size_t len = strlen(fmt) + 23;
+        char new_fmt[len];
+	new_fmt[len - 1];
+
         snprintf(new_fmt, sizeof(new_fmt), "\033[0;%dm[ERROR] %s\033[0;%dm\n", RED, fmt, RESET);
 
         int res =  vfprintf(stderr, new_fmt, argList);
