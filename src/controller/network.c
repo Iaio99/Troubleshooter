@@ -45,7 +45,7 @@ static char *get_gateway(const char *ifname)
         return NULL;
     }
 
-    struct sockaddr_in *addr = (struct sockaddr_in *)&ifr.ifr_addr;
+    const struct sockaddr_in *addr = (struct sockaddr_in *)&ifr.ifr_addr;
     char *gateway = inet_ntoa(addr->sin_addr);
 
     close(sockfd);
@@ -58,10 +58,10 @@ static char **get_dns()
 	_res.options |= RES_INIT;
     	struct __res_state res;
 
-	char **dns_list = malloc((res.nscount+1)*INET_ADDRSTRLEN);
-
     	if (res_ninit(&res) != 0)
     	    	return NULL;
+
+	char **dns_list = malloc((res.nscount+1)*INET_ADDRSTRLEN);
 
         for (int i = 0; i < res.nscount; i++) {
              dns_list[i] = inet_ntoa(res.nsaddr_list[i].sin_addr);
