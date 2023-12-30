@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../controller/commands.h"
 #include "../controller/network.h"
 #include "../controller/disks.h"
 #include "../controller/cpu.h"
