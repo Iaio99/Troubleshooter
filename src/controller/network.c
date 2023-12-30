@@ -61,7 +61,7 @@ char *get_dns_servers()
     	struct __res_state res;
 	
     	if (res_ninit(&res) != 0)
-    	    	return;
+    	    	return NULL;
 
 	char dns_list[(res.nscount+1)*INET_ADDRSTRLEN+2*res.nscount];
 
@@ -138,6 +138,9 @@ extern void get_network_info()
 			gateway = "N/A";
 
 		dns = get_dns_servers();
+
+		if (dns == NULL)
+			dns = "N/A";
 
 		printf("%-16s%-16s%-16s%-16s%-16s\n", ifa->ifa_name, ip_address, netmask, gateway, dns_list);
 	}
