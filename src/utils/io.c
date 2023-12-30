@@ -55,11 +55,9 @@ void clear_screen(void)
 
 bool yes_or_no(char *question, char yes, char no, bool default_answer, bool insensitive)
 {
-	int extra;
+	int extra = 0;
 
 	// yes and no characters should be lowercase by default
-	yes = (char)tolower(yes);
-	no = (char)tolower(no);
 
 	// Which of the two is the default?
 	char s;
@@ -67,15 +65,14 @@ bool yes_or_no(char *question, char yes, char no, bool default_answer, bool inse
 	
 	if(default_answer) {
 		s = (char)toupper(yes);
-		n = no;
+		n = (char)tolower(no);
 	} else {
-		s = yes;
+		s = (char)tolower(yes);
 		n = (char)toupper(no);
 	}
 
 	while(true) {
 		printf("%s [%c/%c]: ", question, s, n);
-		extra = 0;
 
 		char c = (char)getchar();
 		char ch = 0;
