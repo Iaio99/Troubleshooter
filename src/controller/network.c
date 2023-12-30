@@ -18,13 +18,13 @@
 static bool ping (const char *target) {
 	char command[256];
 #ifdef _WIN32
-    snprintf(command, sizeof(command), "ping -n 1 %s > nul", target);
+    	snprintf(command, sizeof(command), "ping -n 1 %s > nul", target);
 #else 
 	snprintf(command, sizeof(command), "ping -c 1 %s > /dev/null", target);
 #endif
-    int result = system(command);
+    	int result = system(command);
 
-    return result == 0 ? 1 : 0;
+    	return result == 0 ? 1 : 0;
 }
 
 static char *get_gateway(const char *ifname)
