@@ -10,8 +10,8 @@ add_executable(troubleshooter
         src/main.c
         src/controller/cpu.c
         src/controller/disks.c
-        src/controller/commands.c
         src/controller/network.c
+        src/utils/commands.c
         src/utils/io.c
         src/utils/validation.c
 	    src/view/menu.c
