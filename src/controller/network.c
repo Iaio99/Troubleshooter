@@ -62,8 +62,6 @@ void get_network_info()
 		const char *gateway = "N/A";
 		char dns[INET_ADDRSTRLEN];
 
-		dns[INET_ADDRSTRLEN - 1] = 0;
-
 		inet_ntop(AF_INET, &sa->sin_addr, ip_address, INET_ADDRSTRLEN);
 
 		sa = (struct sockaddr_in *) ifa->ifa_netmask;
@@ -74,6 +72,7 @@ void get_network_info()
 
 		res_init();
 		for (int i = 0; i < _res.nscount; ++i) {
+			dns[INET_ADDRSTRLEN - 1] = 0;
 			strncpy(dns, inet_ntoa(_res.nsaddr_list[i].sin_addr), INET_ADDRSTRLEN);
 			dns[INET_ADDRSTRLEN - 1] = 0;
 			printf("%-16s%-16s%-16s%-16s%-16s\n", ifa->ifa_name, ip_address, netmask, gateway, dns);

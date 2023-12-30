@@ -18,7 +18,7 @@ static void leave(void)
 		exit(EXIT_SUCCESS);
 }
 
-int colorized_printf(int color, char *fmt, ...)
+int colorized_printf(int color, const char *fmt, ...)
 {
         va_list argList;
         va_start(argList, fmt);
@@ -33,7 +33,7 @@ int colorized_printf(int color, char *fmt, ...)
         return res;
 }
 
-int print_error(char *fmt, ...)
+int print_error(const char *fmt, ...)
 {
         va_list argList;
         va_start(argList, fmt);
