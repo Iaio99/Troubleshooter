@@ -59,7 +59,7 @@ void get_network_info()
 		char ip_address[INET_ADDRSTRLEN];
 		char netmask[INET_ADDRSTRLEN];
 		const char *gateway = "N/A";
-		char dns[INET_ADDRSTRLEN];
+		const char *dns = "N/A";
 
 		inet_ntop(AF_INET, &sa->sin_addr, ip_address, INET_ADDRSTRLEN);
 
@@ -69,13 +69,7 @@ void get_network_info()
 		// Note: The gateway information might not be accurate, as it requires additional
 		// system-specific code to retrieve the default gateway.
 
-		res_init();
-		for (int i = 0; i < _res.nscount; ++i) {
-			dns[INET_ADDRSTRLEN - 1] = 0;
-			strncpy(dns, inet_ntoa(_res.nsaddr_list[i].sin_addr), INET_ADDRSTRLEN);
-			dns[INET_ADDRSTRLEN - 1] = 0;
-			printf("%-16s%-16s%-16s%-16s%-16s\n", ifa->ifa_name, ip_address, netmask, gateway, dns);
-		}
+		printf("%-16s%-16s%-16s%-16s%-16s\n", ifa->ifa_name, ip_address, netmask, gateway, dns);
 	}
 
 	freeifaddrs(ifap);
