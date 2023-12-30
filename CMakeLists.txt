@@ -13,6 +13,7 @@ add_executable(troubleshooter
         src/controller/commands.c
         src/controller/network.c
         src/utils/io.c
+        src/utils/validation.c
 	    src/view/menu.c
 )
 
