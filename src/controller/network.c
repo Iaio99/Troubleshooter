@@ -58,7 +58,6 @@ void get_network_info()
 		sa = (struct sockaddr_in *) ifa->ifa_addr;
 		char ip_address[INET_ADDRSTRLEN];
 		char netmask[INET_ADDRSTRLEN];
-//		char gateway[INET_ADDRSTRLEN];
 		const char *gateway = "N/A";
 		char dns[INET_ADDRSTRLEN];
 
