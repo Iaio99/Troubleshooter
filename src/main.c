@@ -1,7 +1,11 @@
 #include "view/menu.h"
-#include "controller/network.h"
+#include "utils/io.h"
 
 int main()
 {
-	return menu();
+	int res;
+	res = menu();
+	colorized_puts(BLUE, "Bye!");
+	
+	return res;
 }
