@@ -41,14 +41,14 @@ void get_network_info()
 	get_output("ipconfig");
 #else
 	struct ifaddrs *ifap;
-	struct sockaddr_in *sa;
+	const struct sockaddr_in *sa;
 	
 	if (getifaddrs(&ifap) == -1) {
 		print_error("getifaddrs");
 		exit(EXIT_FAILURE);
 	}
 
-	printf("%-16s%-16s%-16s%-16s\n", "Interface", "IP Address", "Netmask", "Gateway", "DNS");
+	printf("Interface       IP Address      Netmask         Gateway         DNS\n");
 
 	for (struct ifaddrs *ifa = ifap; ifa != NULL; ifa = ifa->ifa_next) {
 		if (ifa->ifa_addr == NULL || ifa->ifa_addr->sa_family != AF_INET) {
