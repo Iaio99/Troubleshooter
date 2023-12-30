@@ -16,7 +16,6 @@
 #include "../utils/io.h"
 #include "../utils/validation.h"
 
-char *dns_list;
 
 static bool ping (const char *target) {
 	char command[256];
@@ -56,18 +55,15 @@ static char *get_gateway(const char *ifname)
     return gateway;
 }
 
-void get_dns_servers()
+char *get_dns_servers()
 {
 	_res.options |= RES_INIT;
     	struct __res_state res;
-
+	
     	if (res_ninit(&res) != 0)
     	    	return;
 
-	dns_list = calloc((res.nscount+1)*INET_ADDRSTRLEN+2*res.nscount, sizeof(char));
-
-	if (dns_list == NULL)
-		return;
+	char dns_list[(res.nscount+1)*INET_ADDRSTRLEN+2*res.nscount];
 
         for (int i = 0; i < res.nscount; i++) {
              	strcpy(&dns_list[strlen(dns_list)], inet_ntoa(res.nsaddr_list[i].sin_addr));
@@ -75,6 +71,9 @@ void get_dns_servers()
         }
 
 	dns_list[strlen(dns_list) - 2] = 0;
+	
+	char *p = dns_list;
+	return dns_list;
 }
 
 extern void test_connection() {
@@ -123,6 +122,7 @@ extern void get_network_info()
 		char ip_address[INET_ADDRSTRLEN];
 		char netmask[INET_ADDRSTRLEN];
 		char *gateway;
+		char *dns;
 
 		inet_ntop(AF_INET, &sa->sin_addr, ip_address, INET_ADDRSTRLEN);
 
@@ -137,13 +137,9 @@ extern void get_network_info()
 		if (gateway == NULL)
 			gateway = "N/A";
 
-		get_dns_servers();
-
-		if (dns_list == NULL)
-			dns_list = "N/A";
+		dns = get_dns_servers();
 
 		printf("%-16s%-16s%-16s%-16s%-16s\n", ifa->ifa_name, ip_address, netmask, gateway, dns_list);
-		free(dns_list);
 	}
 
 	freeifaddrs(ifap);
