@@ -80,8 +80,8 @@ extern void test_connection() {
 	char ip_test[INET_ADDRSTRLEN];
 	printf("Give me public IPv4 (8.8.8.8 for example): ");
 	fflush(stdout);
-	fgets(ip_test, INET_ADDRSTRLEN, stdin);
-	ip_test[strlen(ip_test) - 1] = 0;
+	fgets(ip_test, INET_ADDRSTRLEN - 1, stdin);
+	ip_test[strlen(ip_test) - 1] = '\0';
 
 	if (!ping(ip_test))
 		print_error("Internet not working");
