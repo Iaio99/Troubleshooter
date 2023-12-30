@@ -76,7 +76,14 @@ static char **get_dns()
 extern void test_connection() {
 	if (!ping("google.com"))
 		print_error("DNS not working");
-	if (!ping("8.8.8.8"))
+	
+	char ip_test[INET_ADDRSTRLEN];
+	printf("Give me public IPv4 (8.8.8.8 for example): ");
+	fflush(stdout);
+	fgets(ip_test, INET_ADDRSTRLEN, stdin);
+	ip_test[strlen(ip_test) - 1] = 0;
+
+	if (!ping(ip_test))
 		print_error("Internet not working");
 	else
 		colorized_printf(GREEN, "All test passed!");
