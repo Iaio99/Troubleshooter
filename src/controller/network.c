@@ -78,7 +78,7 @@ extern void test_connection() {
 	if (!ping("google.com"))
 		print_error("DNS not working");
 	
-	char ip_test[INET_ADDRSTRLEN];
+	char ip_test[INET_ADDRSTRLEN + 1];
 
 	while (1) {
 		printf("Give me a public IPv4 (8.8.8.8 for example): ");
