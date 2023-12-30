@@ -14,6 +14,7 @@
 
 #include "network.h"
 #include "../utils/io.h"
+#include "../utils/validation.h"
 
 static bool ping (const char *target) {
 	char command[256];
@@ -78,10 +79,17 @@ extern void test_connection() {
 		print_error("DNS not working");
 	
 	char ip_test[INET_ADDRSTRLEN];
-	printf("Give me public IPv4 (8.8.8.8 for example): ");
-	fflush(stdout);
-	fgets(ip_test, INET_ADDRSTRLEN - 1, stdin);
-	ip_test[strlen(ip_test) - 1] = '\0';
+
+	while (1) {
+		printf("Give me a public IPv4 (8.8.8.8 for example): ");
+		fflush(stdout);
+		fgets(ip_test, INET_ADDRSTRLEN, stdin);
+		ip_test[strlen(ip_test) - 1] = '\0';
+
+		if (validate_ip_address(ip_test))
+			break;
+		print_error("The IPv4 Address inserted is not valid");
+	}
 
 	if (!ping(ip_test))
 		print_error("Internet not working");
